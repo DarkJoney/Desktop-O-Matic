@@ -5,10 +5,15 @@ def batchProcessorByType():
     desktopLoc = analysis.locate_desktop()
     targetTypes = datamove.parserLoader("data/msWord")
     fileType = targetTypes[0]
+    fileType = fileType.strip('\n')
     targetTypes.pop(0)
-    for i in fileType:
-        locatedFiles = analysis.get_files(targetTypes, desktopLoc)
-        datamove.move_to_folder_by_type(locatedFiles,i,fileType)
+    for i in targetTypes:
+        targetFileType = i.strip('\n')
+        locatedFiles = analysis.get_files(targetFileType, desktopLoc)
+        if locatedFiles == []:
+            pass
+        else:
+            datamove.move_to_folder_by_type(locatedFiles,targetFileType,fileType)
 
 def main():
     print("hello!")
@@ -20,5 +25,6 @@ def main():
     print(analysis.checkIfCameraPresentInExif(r"C:\Users\darkj\Desktop\photo_2022-06-24_12-17-29.jpg"))
     #analysis.defineIfAudioIsMusic("01 Kallisto.m4a")
     datamove.parserLoader("data/msWord")
+    batchProcessorByType()
 if __name__ == '__main__':
     main()

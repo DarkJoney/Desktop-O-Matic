@@ -40,6 +40,7 @@ def move_to_folder_timeline(targets, fFormat):
 
 def move_to_folder_by_type(targets, fFormat, targetType):
     targetFormat =  (str(fFormat).replace(".","")).upper()
+    print(targetFormat)
     path = locate_desktop() + "\\" + targetType +"\\" + targetFormat
     isExist = os.path.exists(path)
     if not isExist:
