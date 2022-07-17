@@ -1,7 +1,9 @@
 import os, shutil, time
+import eyed3
 from pyexpat import model
 from PIL import Image, ExifTags
 from PIL.ExifTags import TAGS
+
 
 def locate_desktop():
     desktop = os.path.join(os.path.join(os.environ['USERPROFILE']), 'Desktop')
@@ -17,7 +19,6 @@ def get_files(fFormat, desktopPath):
     return foundFiles
 
 
-
 def checkIfCameraPresentInExif(file):
     img = Image.open(file)
     img_exif = img.getexif()
@@ -28,3 +29,7 @@ def checkIfCameraPresentInExif(file):
     except KeyError:
         return False
 
+def defineIfAudioIsMusic(file):
+    audiofile = eyed3.load(file)
+    print(audiofile.tag.artist)
+    print(audiofile.tag.album)#separate
