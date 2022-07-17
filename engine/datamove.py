@@ -49,18 +49,21 @@ def move_to_folder_by_type(targets, fFormat, targetType):
     else:
         print("it exists!")
     for i in targets:
-        print(i)
         f_mod_time = os.path.getmtime(i)
         time_stamp = time.strftime("%Y-%m-%d", time.strptime(time.ctime(f_mod_time)))
-        print(time_stamp)
+        #print(time_stamp)
         isExist = os.path.exists(path  + "\\" + time_stamp)
-        
+        #print("target name")
+        #print(i)
+        head, tail = os.path.split(i)
+        #print(tail)
         if not isExist: 
             os.makedirs(path  + "\\" + time_stamp)
             print("The new directory is created!")
         else:
             print("it exists!")
-        #to do copy here
+        shutil.move(i, path  + "\\" + time_stamp + "\\" + tail)
+        print("Copied!")
 
 def parserLoader(formats):
     file_formats = open(formats, 'r') #must receive the format file from the data folder
